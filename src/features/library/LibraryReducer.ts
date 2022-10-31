@@ -1,14 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { RootState } from "../../app/store";
 import { fetchBooksAsync } from "./LibraryActions";
 import { BookInfo } from "./libraryService";
 
 export interface LibraryState {
-    books: BookInfo & { checkoutOut: boolean; } | undefined
+    books: BookInfo[] | []
     loading: boolean
 }
 
 const initialState: LibraryState = {
-    books: undefined,
+    books: [],
     loading: true,
   };
 
@@ -28,8 +29,13 @@ export const LibrarySlice = createSlice({
         })
         .addCase(fetchBooksAsync.rejected, (state) => {
           state.loading = false;
+          state.books = [];
         });
     },
   });
+
+  /* Selectors */
+  export const selectBooks = (state: RootState) => state.library.books;
+  export const selectLoadingStatus = (state: RootState) => state.library.loading;
 
   export default LibrarySlice.reducer
