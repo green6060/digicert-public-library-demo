@@ -1,11 +1,9 @@
-import { Box, Grid } from '@mui/material'
+import { Box, CircularProgress, Grid } from '@mui/material'
 import { useAppSelector } from '../../app/hooks'
 import BookCard from './bookCard/BookCard'
 import { selectBooks, selectLoadingStatus } from './LibraryReducer'
 
-type Props = {}
-
-const Library = (props: Props) => {
+const Library = () => {
   const books = useAppSelector(selectBooks)
   const bookLoadingStatus = useAppSelector(selectLoadingStatus)
   return (   
@@ -17,7 +15,9 @@ const Library = (props: Props) => {
         ))}
       </Grid>
       :
-      'Loading'
+      <Box sx={{ display: 'flex' }}>
+        <CircularProgress />
+      </Box>
       }
       
     </Box>
