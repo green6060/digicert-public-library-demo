@@ -1,5 +1,7 @@
 import { Button, CardActions, CardContent, Grid, Typography } from '@mui/material'
-import React from 'react'
+import { useAppDispatch, useAppSelector } from '../../../app/hooks'
+import { deleteBookAsync } from '../LibraryActions'
+import { selectBooks } from '../LibraryReducer'
 import { BookInfo } from '../libraryService'
 
 type Props = {
@@ -7,7 +9,10 @@ type Props = {
 }
 
 const BookCard = (props: Props) => {
-    const book: BookInfo = props.bookInfo
+    const dispatch = useAppDispatch();
+    const book: BookInfo = props.bookInfo;
+    const books = useAppSelector(selectBooks)
+    
   return (
     <>
         <Grid xs={4}>
@@ -23,7 +28,7 @@ const BookCard = (props: Props) => {
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button onClick={() => (console.log('placeholder button'))}>Delete Book</Button>
+                <Button onClick={() => dispatch(deleteBookAsync({book: book.name, library: books}))}>Delete Book</Button>
             </CardActions>
         </Grid>
     </>

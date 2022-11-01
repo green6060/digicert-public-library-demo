@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
-import { fetchBooksAsync } from "./LibraryActions";
+import { deleteBookAsync, fetchBooksAsync } from "./LibraryActions";
 import { BookInfo } from "./libraryService";
 
 export interface LibraryState {
@@ -30,6 +30,16 @@ export const LibrarySlice = createSlice({
         .addCase(fetchBooksAsync.rejected, (state) => {
           state.loading = false;
           state.books = [];
+        })
+        .addCase(deleteBookAsync.pending, (state) => {
+          state.loading = true;
+        })
+        .addCase(deleteBookAsync.fulfilled, (state, action) => {
+          state.loading = false;
+          state.books = action.payload;
+        })
+        .addCase(deleteBookAsync.rejected, (state) => {
+          state.loading = false;
         });
     },
   });

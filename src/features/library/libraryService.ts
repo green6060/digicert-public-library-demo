@@ -20,3 +20,10 @@ export const fetchBooks = async () => {
   });
 }
 
+export const deleteBook = async (book: string, library: BookInfo[]) => {
+  return await new Promise<BookInfo[]>((resolve) =>{
+  const newLibrary = library.filter((libraryBook) => libraryBook.name !== book)
+  setTimeout(() => resolve(newLibrary), 500)}
+);
+}
+

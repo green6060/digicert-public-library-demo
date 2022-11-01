@@ -1,7 +1,12 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { fetchBooks } from "./libraryService";
+import { fetchBooks, deleteBook, BookInfo } from "./libraryService";
 
 export const fetchBooksAsync = createAsyncThunk(
-    'counter/fetchCount',
+    'library/fetchBooks',
     fetchBooks
   );
+
+export const deleteBookAsync = createAsyncThunk(
+  'library/deleteBook',
+  (props: {book: string, library: BookInfo[]}) => deleteBook(props.book, props.library)
+)
